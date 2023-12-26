@@ -310,44 +310,26 @@
             }
         }
 
-        // function updateScheduleTable() {
-        //     var start = (currentPage - 1) * pageSize;
-        //     var end = start + pageSize;
-        //     var currentSchedule = schedule.slice(start, end);
-        //     populateScheduleTable(currentSchedule);
-        // }
-        function updateScheduleTable(scheduleData) {
+        function updateScheduleTable() {
             var start = (currentPage - 1) * pageSize;
             var end = start + pageSize;
-            var currentSchedule = scheduleData.slice(start, end);
+            var currentSchedule = schedule.slice(start, end);
             populateScheduleTable(currentSchedule);
         }
 
         function previousPage() {
             if (currentPage > 1) {
                 currentPage--;
-                updateScheduleTable(schedule);
+                updateScheduleTable();
             }
         }
 
         function nextPage() {
             if (currentPage < totalPages) {
                 currentPage++;
-                updateScheduleTable(schedule);
+                updateScheduleTable();
             }
         }
-
-        // function searchSchedule() {
-        //     var searchDate = document.getElementById("searchDate").value;
-        //     var filteredSchedule = schedule.filter(function (entry) {
-        //         return entry[0] === searchDate;
-        //     });
-
-        //     currentPage = 1;
-        //     schedule = filteredSchedule;
-        //     totalPages = Math.ceil(schedule.length / pageSize);
-        //     updateScheduleTable();
-        // }
 
         function searchSchedule() {
             var searchDate = document.getElementById("searchDate").value;
@@ -355,13 +337,10 @@
                 return entry[0] === searchDate;
             });
 
-            if(filteredSchedule.length > 0){
-                currentPage = 1;
-                totalPages = Math.ceil(filteredSchedule.length / pageSize);
-                updateScheduleTable(filteredSchedule);
-            } else {
-                alert("未找到匹配日期的日程");
-            }
+            currentPage = 1;
+            schedule = filteredSchedule;
+            totalPages = Math.ceil(schedule.length / pageSize);
+            updateScheduleTable();
         }
 
         function showAllSchedule() {
@@ -559,14 +538,11 @@
                 // ...
             ];
             totalPages = Math.ceil(schedule.length / pageSize);
-            // updateScheduleTable();
-            updateScheduleTable(schedule);
-
+            updateScheduleTable();
         }
 
         // 初始加载全部日程
-        // updateScheduleTable();
-        updateScheduleTable(schedule);
+        updateScheduleTable();
     </script>
 </body>
 </html>
